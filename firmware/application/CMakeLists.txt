@@ -145,7 +145,7 @@ set(CPPSRC
 	${COMMON}/portapack_persistent_memory.cpp
 	${COMMON}/portapack_shared_memory.cpp
 	${COMMON}/sonde_packet.cpp
-	# ${COMMON}/test_packet.cpp
+	${COMMON}/test_packet.cpp
 	${COMMON}/tpms_packet.cpp
 	${COMMON}/ui.cpp
 	${COMMON}/ui_focus.cpp
@@ -160,7 +160,7 @@ set(CPPSRC
 	clock_manager.cpp
 	core_control.cpp
 	de_bruijn.cpp
-	#emu_cc1101.cpp
+	emu_cc1101.cpp
 	rfm69.cpp
 	event_m0.cpp
 	file.cpp
@@ -237,7 +237,7 @@ set(CPPSRC
 	apps/ui_mictx.cpp
 	apps/ui_modemsetup.cpp
 	apps/ui_morse.cpp
-	# apps/ui_nuoptix.cpp
+	apps/ui_nuoptix.cpp
 	apps/ui_pocsag_tx.cpp
 	apps/ui_rds.cpp
 	apps/ui_remote.cpp
@@ -248,7 +248,7 @@ set(CPPSRC
 	apps/ui_siggen.cpp
 	apps/ui_sonde.cpp
 	apps/ui_sstvtx.cpp
-	# apps/ui_test.cpp
+	apps/ui_test.cpp
 	apps/ui_tone_search.cpp
 	apps/ui_touch_calibration.cpp
 	apps/ui_touchtunes.cpp
@@ -274,11 +274,11 @@ set(CPPSRC
 	protocols/lcr.cpp
 	protocols/modems.cpp
 	protocols/rds.cpp
-	# ui_handwrite.cpp
-	# ui_loadmodule.cpp
-	# ui_numbers.cpp
+	#ui_handwrite.cpp
+	#ui_loadmodule.cpp
+	#apps/ui_numbers.cpp
 	# ui_replay_view.cpp
-	# ui_script.cpp
+	apps/ui_script.cpp
 	ui_sd_card_debug.cpp
 	${CPLD_20150901_DATA_CPP}
 	${CPLD_20170522_DATA_CPP}

@@ -242,7 +242,7 @@ void JammerView::start_tx() {
 				
 				for (c = 0; c < num_channels; c++) {
 					if (i >= JAMMER_MAX_CH) {
-						out_of_ranges = true;
+						out_of_ranges = false;
 						break;
 					}
 					set_jammer_channel(i, ch_width, start_freq + (ch_width / 2) + (ch_width * c), hop_value);
@@ -251,7 +251,7 @@ void JammerView::start_tx() {
 			} else {
 				// Range fits in a single channel
 				if (i >= JAMMER_MAX_CH) {
-					out_of_ranges = true;
+					out_of_ranges = false;
 				} else {
 					set_jammer_channel(i, range_bw, start_freq + (range_bw / 2), hop_value);
 					i++;
