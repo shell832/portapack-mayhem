@@ -233,11 +233,12 @@ void ADSBTXThread::run() {
 	uint8_t * bin_ptr = shared_memory.bb_data.data;
 	uint8_t * raw_ptr;
 	uint32_t frame_index = 0;	//, plane_index = 0;
-	//uint32_t regen = 0;
-	//float offs = 0;
+	uint32_t plane_index = 0;
+	uint32_t regen = 0;
+	float offs = 0;
 	
 	while( !chThdShouldTerminate() ) {
-		/*if (!regen) {
+		if (!regen) {
 			regen = 10;
 			
 			encode_frame_id(frames[0], plane_index, "DEMO" + to_string_dec_uint(plane_index));
@@ -251,15 +252,16 @@ void ADSBTXThread::run() {
 				plane_index++;
 			
 			offs += 0.001;
-		}*/
+		}
 		
 		memset(bin_ptr, 0, 256);	// 112 bits * 2 parts = 224 should be enough
 		
 		raw_ptr = frames_[frame_index].get_raw_data();
 		
 		// The preamble isn't manchester encoded
-		memcpy(bin_ptr, adsb_preamble, 16);
-		
+		//memcpy(bin_ptr, adsb_preamble, 16);
+		memcpy(bin_ptr, adsb_preamble, 32);		
+
 		// Convert to binary (1 byte per bit, faster for baseband code)
 		manchester_encode(bin_ptr + 16, raw_ptr, 112, 0);
 	
@@ -273,8 +275,8 @@ void ADSBTXThread::run() {
 		frame_index++;
 		if (frame_index >= frames_.size()) {
 			frame_index = 0;
-			//if (regen)
-			//	regen--;
+			if (regen)
+				regen--;
 		}
 	}
 }

@@ -277,7 +277,7 @@ set(CPPSRC
 	#ui_handwrite.cpp
 	#ui_loadmodule.cpp
 	#apps/ui_numbers.cpp
-	# ui_replay_view.cpp
+	#ui_replay_view.cpp
 	apps/ui_script.cpp
 	ui_sd_card_debug.cpp
 	${CPLD_20150901_DATA_CPP}
