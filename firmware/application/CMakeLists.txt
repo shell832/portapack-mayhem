@@ -278,7 +278,7 @@ set(CPPSRC
 	#ui_loadmodule.cpp
 	#apps/ui_numbers.cpp
 	#ui_replay_view.cpp
-	apps/ui_script.cpp
+	#apps/ui_script.cpp
 	ui_sd_card_debug.cpp
 	${CPLD_20150901_DATA_CPP}
 	${CPLD_20170522_DATA_CPP}

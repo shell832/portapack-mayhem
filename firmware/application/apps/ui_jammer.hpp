@@ -156,7 +156,8 @@ private:
 		{ { 0 * 8, 33 * 8 }, "Jitter:", Color::light_grey() },	//Maybe the repository curator can keep the "mystype" for some versions. 
 		{ { 11 * 8, 29 * 8 }, "Secs.", Color::light_grey() }, 
 		{ { 11 * 8, 31 * 8 }, "Secs.", Color::light_grey() },
-		{ { 11 * 8, 33 * 8 }, "/60", Color::light_grey() }
+		//{ { 11 * 8, 33 * 8 }, "/60", Color::light_grey() }
+		{ { 11 * 8, 33 * 8 }, "/90", Color::light_grey() }
 	};
 	
 	OptionsField options_type {

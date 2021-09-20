@@ -39,7 +39,8 @@ public:
 	Channel(
 		const Rect parent_rect
 	) : Widget { parent_rect },
-		max_db_ { -120 }
+		//max_db_ { -120 }
+		max_db_ { -300 }
 	{
 	}
 

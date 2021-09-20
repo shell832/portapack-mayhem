@@ -51,8 +51,8 @@ public:
 
 private:
 	Labels labels {
-		{ { 6 * 8, 7 * 16 }, "YYYY-MM-DD HH:MM:SS", Color::grey() },
-		{ { 10 * 8, 9 * 16 }, "-  -     :  :", Color::light_grey() }
+		{ { 6 * 8, 7 * 16 }, "YYYY/MM/DD HH:MM:SS", Color::grey() },
+		{ { 10 * 8, 9 * 16 }, "/  /     :  :", Color::light_grey() }
 	};
 	
 	NumberField field_year {
@@ -114,7 +114,6 @@ private:
 
 struct SetFrequencyCorrectionModel {
 	int8_t ppm;
-	uint32_t freq;
 };
 
 class SetRadioView : public View {
@@ -131,7 +130,6 @@ private:
 		.background = Color::black(),
 		.foreground = Color::light_grey(),
 	};
-	uint8_t freq_step_khz = 3;
 
 	Text label_source {
 		{ 0, 1 * 16, 17 * 8, 16 },
@@ -149,31 +147,8 @@ private:
 	};
 
 	Labels labels_correction {
-		{ { 2 * 8, 3 * 16 }, "Frequency correction:", Color::light_grey() },
-		{ { 6 * 8, 4 * 16 }, "PPM", Color::light_grey() },
-	};
-
-	Checkbox check_clkout {
-		{ 18, (6 * 16 - 4) },
-		13,
-		"Enable CLKOUT"
-	};
-
-	NumberField field_clkout_freq {
-		{ 20 * 8, 6 * 16 },
-		5,
-		{ 10, 60000 },
-		1000,
-		' '
-	};
-
-	Labels labels_clkout_khz {
-		{ { 26 * 8, 6 * 16 }, "kHz", Color::light_grey() }
-	};
-
-	Text value_freq_step {
-		{ 21 * 8, (7 * 16 ), 4 * 8, 16 },
-		"|   "
+		{ { 2 * 8, 4 * 16 }, "Frequency correction:", Color::light_grey() },
+		{ { 6 * 8, 5 * 16 }, "PPM", Color::light_grey() },
 	};
 
 	Labels labels_bias {
@@ -184,7 +159,7 @@ private:
 	};
 
 	NumberField field_ppm {
-		{ 2 * 8, 4 * 16 },
+		{ 2 * 8, 5 * 16 },
 		3,
 		{ -50, 50 },
 		1,
@@ -226,19 +201,19 @@ private:
 	};*/
 	
 	Checkbox checkbox_speaker {
-		{ 3 * 8, 4 * 16 },
+		{ 3 * 8, 2 * 16 },
 		20,
 		"Hide H1 Speaker option"
 	};
-	
 	Checkbox checkbox_bloff {
-		{ 3 * 8, 6 * 16 },
+		{ 3 * 8, 5 * 16 },
 		20,
 		"Backlight off after:"
 	};
+
 	OptionsField options_bloff {
-		{ 52, 7 * 16 + 8 },
-		20,
+		{ 52, 6 * 16 + 8 },
+		10,
 		{
 			{ "5 seconds", 5 },
 			{ "15 seconds", 15 },
@@ -252,24 +227,9 @@ private:
 	
 	Checkbox checkbox_showsplash {
 		{ 3 * 8, 9 * 16 },
-		20,
+		11,
 		"Show splash"
 	};
-	
-	Checkbox checkbox_showclock {	
-		{ 3 * 8, 11 * 16 },
-		20,
-		"Show clock with:"
-	};
-
-	OptionsField options_clockformat {
-		{ 52, 12 * 16 + 8 },
-		20,
-		{
-			{ "time only", 0 },
-			{ "time and date", 1 }
-		}
-	};	
 	
 	Button button_ok {
 		{ 2 * 8, 16 * 16, 12 * 8, 32 },

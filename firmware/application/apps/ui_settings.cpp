@@ -144,10 +144,6 @@ SetRadioView::SetRadioView(
 	}
 
 	add_children({
-		&check_clkout,
-		&field_clkout_freq,
-		&labels_clkout_khz,
-		&value_freq_step,
 		&labels_bias,
 		&check_bias,
 		&button_done,
@@ -155,43 +151,10 @@ SetRadioView::SetRadioView(
 	});
 
 	SetFrequencyCorrectionModel model {
-		static_cast<int8_t>(portapack::persistent_memory::correction_ppb() / 1000) , 0
+		static_cast<int8_t>(portapack::persistent_memory::correction_ppb() / 1000)
 	};
 
 	form_init(model);
-
-	check_clkout.set_value(portapack::persistent_memory::clkout_enabled());
-	check_clkout.on_select = [this](Checkbox&, bool v) {
-		clock_manager.enable_clock_output(v);
-		portapack::persistent_memory::set_clkout_enabled(v);
-		StatusRefreshMessage message { };
-		EventDispatcher::send_message(message);
-	};
-
-	field_clkout_freq.set_value(portapack::persistent_memory::clkout_freq());
-	value_freq_step.set_style(&style_text);
-
-	field_clkout_freq.on_select = [this](NumberField&) {
-		freq_step_khz++;
-		if(freq_step_khz > 3) {
-			freq_step_khz = 0;
-		}
-		switch(freq_step_khz) {
-			case 0:
-				value_freq_step.set("   |");
-				break;
-			case 1:
-				value_freq_step.set("  | ");
-				break;
-			case 2:
-				value_freq_step.set(" |  ");
-				break;
-			case 3:
-				value_freq_step.set("|   ");
-				break;
-		}
-		field_clkout_freq.set_step(pow(10, freq_step_khz));
-	};
 
 	check_bias.set_value(portapack::get_antenna_bias());
 	check_bias.on_select = [this](Checkbox&, bool v) {
@@ -203,8 +166,6 @@ SetRadioView::SetRadioView(
 	button_done.on_select = [this, &nav](Button&){
 		const auto model = this->form_collect();
 		portapack::persistent_memory::set_correction_ppb(model.ppm * 1000);
-		portapack::persistent_memory::set_clkout_freq(model.freq);
-		clock_manager.enable_clock_output(portapack::persistent_memory::clkout_enabled());
 		nav.pop();
 	};
 }
@@ -220,7 +181,6 @@ void SetRadioView::form_init(const SetFrequencyCorrectionModel& model) {
 SetFrequencyCorrectionModel SetRadioView::form_collect() {
 	return {
 		.ppm = static_cast<int8_t>(field_ppm.value()),
-		.freq = static_cast<uint32_t>(field_clkout_freq.value()),
 	};
 }
 
@@ -231,7 +191,6 @@ SetPlayDeadView::SetPlayDeadView(NavigationView& nav) {
 		&button_enter,
 		&button_cancel
 	});
-
 	button_enter.on_select = [this, &nav](Button&){
 		if (!entermode) {
 			sequence = 0;
@@ -272,7 +231,6 @@ SetPlayDeadView::SetPlayDeadView(NavigationView& nav) {
 	
 	button_cancel.on_select = [&nav](Button&){ nav.pop(); };
 }
-
 void SetPlayDeadView::focus() {
 	button_cancel.focus();
 }
@@ -285,28 +243,20 @@ SetUIView::SetUIView(NavigationView& nav) {
 		&checkbox_bloff,
 		&options_bloff,
 		&checkbox_showsplash,
-		&checkbox_showclock,
-		&options_clockformat,		
 		&button_ok
 	});
 	
 	checkbox_speaker.set_value(persistent_memory::config_speaker());
 	checkbox_showsplash.set_value(persistent_memory::config_splash());
-	checkbox_showclock.set_value(!persistent_memory::hide_clock());
 	//checkbox_login.set_value(persistent_memory::config_login());
 	
 	uint32_t backlight_timer = persistent_memory::config_backlight_timer();
+	
 	if (backlight_timer) {
 		checkbox_bloff.set_value(true);
 		options_bloff.set_by_value(backlight_timer);
 	} else {
 		options_bloff.set_selected_index(0);
-	}
-
-	if (persistent_memory::clock_with_date()) {
-		options_clockformat.set_selected_index(1);
-	} else {
-		options_clockformat.set_selected_index(0);
 	}
 
 	checkbox_speaker.on_select = [this](Checkbox&, bool v) {
@@ -324,14 +274,7 @@ SetUIView::SetUIView(NavigationView& nav) {
 		else
 			persistent_memory::set_config_backlight_timer(0);
 		
-		if (checkbox_showclock.value()){
-		    if (options_clockformat.selected_index() == 1)
-			    persistent_memory::set_clock_with_date(true);    
-     		else
-			    persistent_memory::set_clock_with_date(false);		
-		}		
 		persistent_memory::set_config_splash(checkbox_showsplash.value());
-		persistent_memory::set_clock_hidden(!checkbox_showclock.value());
 		//persistent_memory::set_config_login(checkbox_login.value());
 		nav.pop();
 	};
@@ -363,7 +306,6 @@ void SetAudioView::focus() {
 /*void ModInfoView::on_show() {
 	if (modules_nb) update_infos(0);
 }
-
 void ModInfoView::update_infos(uint8_t modn) {
 	char info_str[27];
 	char ch;
@@ -384,7 +326,6 @@ void ModInfoView::update_infos(uint8_t modn) {
 	for (c = 0; c < 8; c++)
 		strcat(info_str, to_string_hex(module_list[modn].md5[c], 2).c_str());
 	text_md5_a.set(info_str);
-
 	info_str[0] = 0;
 	for (c = 8; c < 16; c++)
 		strcat(info_str, to_string_hex(module_list[modn].md5[c], 2).c_str());
@@ -411,7 +352,6 @@ void ModInfoView::update_infos(uint8_t modn) {
 		pos.x += advance.x;
 	}
 }
-
 ModInfoView::ModInfoView(NavigationView& nav) {
 	const char magic[4] = {'P', 'P', 'M', ' '};
 	UINT bw;
@@ -450,7 +390,6 @@ ModInfoView::ModInfoView(NavigationView& nav) {
 	text_name.set_style(&style_orange);
 	text_size.set_style(&style_orange);
 	text_md5.set_style(&style_orange);
-
 	// TODO: Find a way to merge this with m4_load_image() in m4_startup.cpp
 	
 	// Scan SD card root directory for files starting with the magic bytes
@@ -506,7 +445,6 @@ ModInfoView::ModInfoView(NavigationView& nav) {
 	f_closedir(&rootdir);
 	
 	modules_nb = c;
-
 	if (modules_nb) {
 		strcpy(info_str, "Found ");
 		strcat(info_str, to_string_dec_uint(modules_nb, 1).c_str());
@@ -525,12 +463,10 @@ ModInfoView::ModInfoView(NavigationView& nav) {
 		strcpy(info_str, "No modules found");
 		text_modcount.set(info_str);
 	}
-
 	button_ok.on_select = [&nav,this](Button&){
 		nav.pop();
 	};
 }
-
 void ModInfoView::focus() {
 	if (modules_nb)
 		option_modules.focus();

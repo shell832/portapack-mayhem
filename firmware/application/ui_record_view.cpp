@@ -35,7 +35,6 @@ using namespace portapack;
 #include <cstdint>
 
 namespace ui {
-
 /*void RecordView::toggle_pitch_rssi() {
 	pitch_rssi_enabled = !pitch_rssi_enabled;
 	

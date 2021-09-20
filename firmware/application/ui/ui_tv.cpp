@@ -46,15 +46,15 @@ TimeScopeView::TimeScopeView(
 	set_focusable(true);
 	
 	add_children({
-		&labels,
-		&field_frequency,
+		//&labels,
+		//&field_frequency,
 		&waveform
 	});
 	
-	field_frequency.on_change = [this](int32_t) {
+	/*field_frequency.on_change = [this](int32_t) {
 		set_dirty();
 	};
-	field_frequency.set_value(10);
+	field_frequency.set_value(10);*/
 }
 
 void TimeScopeView::paint(Painter& painter) {
@@ -63,7 +63,7 @@ void TimeScopeView::paint(Painter& painter) {
 	painter.fill_rectangle(r, Color::black());
 	
 	// Cursor
-	
+	/*
 	const Rect r_cursor {
 		field_frequency.value() / (48000 / 240), r.bottom() - 32 - cursor_band_height,
 		1, cursor_band_height
@@ -71,7 +71,7 @@ void TimeScopeView::paint(Painter& painter) {
 	painter.fill_rectangle(
 		r_cursor,
 		Color::red()
-	);
+	);*/
 }
 
 void TimeScopeView::on_audio_spectrum(const AudioSpectrum* spectrum) {
@@ -161,7 +161,7 @@ void TVView::on_channel_spectrum(
 		{
 			for (bmp_px = 0; bmp_px < 128; bmp_px++) 
 			{
-				line_buffer[bmp_px] = video_buffer[bmp_px+line*128];
+				//line_buffer[bmp_px] = video_buffer[bmp_px+line*128];
 				line_buffer[bmp_px] = spectrum_rgb4_lut[video_buffer_int[bmp_px+line/2*128 + x_correction]];
 			}
 

@@ -227,7 +227,9 @@ RDSView::RDSView(
 		&view_datetime,
 		&view_audio,
 		//&options_countrycode,
+		&options_countrycode,
 		//&options_coverage,
+		&options_coverage,
 		&tx_view,
 	});
 	
@@ -243,7 +245,9 @@ RDSView::RDSView(
 	
 	options_pty.set_selected_index(0);				// None
 	//options_countrycode.set_selected_index(18);		// Baguette du fromage
+	options_countrycode.set_selected_index(18);		// Baguette du fromage
 	//options_coverage.set_selected_index(0);			// Local
+	options_coverage.set_selected_index(0);			// Local
 	
 	tx_view.on_edit_frequency = [this, &nav]() {
 		auto new_view = nav.push<FrequencyKeypadView>(receiver_model.tuning_frequency());

@@ -238,7 +238,7 @@ void ADSBTXThread::run() {
 	float offs = 0;
 	
 	while( !chThdShouldTerminate() ) {
-		if (!regen) {
+		/*if (!regen) {
 			regen = 10;
 			
 			encode_frame_id(frames[0], plane_index, "DEMO" + to_string_dec_uint(plane_index));
@@ -252,7 +252,7 @@ void ADSBTXThread::run() {
 				plane_index++;
 			
 			offs += 0.001;
-		}
+		}*/
 		
 		memset(bin_ptr, 0, 256);	// 112 bits * 2 parts = 224 should be enough
 		

@@ -178,8 +178,10 @@ private:
 	Labels labels {
 		{ { 0 * 8, 28 }, "Program type:", Color::light_grey() },
 		//{ { 14 * 8, 16 + 8 }, "CC:", Color::light_grey() },
+		{ { 14 * 8, 16 + 8 }, "CC:", Color::light_grey() },
 		{ { 2 * 8, 28 + 16 }, "Program ID:", Color::light_grey() },
 		//{ { 13 * 8, 32 + 8 }, "Cov:", Color::light_grey() },
+		{ { 13 * 8, 32 + 8 }, "Cov:", Color::light_grey() },
 	};
 	
 	OptionsField options_pty {
@@ -221,7 +223,8 @@ private:
 		}
 	};
 	
-	/*OptionsField options_countrycode {
+	//OptionsField options_countrycode {
+	OptionsField options_countrycode {
 		{ 17 * 8, 16 + 8 },
 		11,
 		{
@@ -288,15 +291,16 @@ private:
 			{ "Vatican", 	4 },
 			{ "Yugoslavia", 13 }
 		}
-	};*/
-	
+	//};
+	};
 	SymField sym_pi_code {
 		{ 13 * 8, 28 + 16 },
 		4,
 		SymField::SYMFIELD_HEX
 	};
 	
-	/*OptionsField options_coverage {
+	//OptionsField options_coverage {
+	OptionsField options_coverage {
 		{ 17 * 8, 32 + 8 },
 		12,
 		{
@@ -317,7 +321,8 @@ private:
 			{ "R111", 14 },
 			{ "R112", 15 }
 		}
-	};*/
+	//};
+	};
 
 	Checkbox check_TP {
 		{ 23 * 8, 4 * 8 },

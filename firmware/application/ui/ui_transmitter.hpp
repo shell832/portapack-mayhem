@@ -71,6 +71,10 @@ public:
 	
 	void set_transmitting(const bool transmitting);
 
+	FrequencyField field_frequency {
+		{ 0, 1 * 8 }
+	};
+
 private:
 	const Style style_start {
 		.font = font::fixed_8x16,
@@ -106,9 +110,7 @@ private:
 	bool lock_ { false };
 	bool transmitting_ { false };
 	
-	FrequencyField field_frequency {
-		{ 0, 1 * 8 }
-	};
+
 	
 	Text text_gain {
 		{ 0, 3 * 8, 5 * 8, 1 * 16 },
@@ -124,11 +126,11 @@ private:
 	};
 
 	Text text_bw {
-		{ 18 * 8, 1 * 8, 3 * 8, 1 * 16 },
-		"kHz"
+		{ 11 * 8, 1 * 8, 9 * 8, 1 * 16 },
+		"BW:   kHz"
 	};
 	NumberField field_bw {
-		{ 15 * 8, 1 * 8 },
+		{ 14 * 8, 1 * 8 },
 		3,
 		{ 1, 150 },
 		1,
@@ -151,10 +153,6 @@ private:
 	Button button_start {
 		{ 21 * 8, 1 * 8, 9 * 8, 32 },
 		"START"
-	};
-	
-	FrequencyStepView field_frequency_step {
-		{ 10 * 8 - 4, 1 * 8 },
 	};
 
 	void on_tuning_frequency_changed(rf::Frequency f);
